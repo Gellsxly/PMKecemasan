@@ -1,0 +1,25 @@
+{% extends 'layout/base.html' %} {% block content %}
+
+<div class="container mt-5 text-center">
+  <h2 class="mb-4">Hasil Diagnosa</h2>
+
+  <div class="card p-4 shadow-sm">
+    <h4 class="text-primary mb-3">{{ hasil }}</h4>
+
+    <p>
+      Tingkat kecemasan Anda:
+      <strong>{{ tingkat }}</strong>
+    </p>
+
+    <hr />
+
+    <p class="text-muted">
+      *Hasil ini hanya sebagai deteksi awal dan tidak menggantikan diagnosis
+      profesional.
+    </p>
+  </div>
+
+  <a href="/konsultasi" class="btn btn-primary mt-4"> Coba Lagi </a>
+</div>
+
+{% endblock %}

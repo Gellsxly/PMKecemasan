@@ -1,0 +1,86 @@
+{% extends 'layout/base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+
+  <h3 class="text-center mb-4">Form Konsultasi</h3>
+
+  <form method="POST" id="formKonsultasi">
+
+    <!-- STEP 1 -->
+    <div id="step1">
+      <h5 class="mb-3 text-primary">Gejala Psikologis</h5>
+
+      {% for g in gejala_psikologis %}
+      <div class="mb-3 p-3 border rounded">
+        <label class="form-label fw-semibold">{{ g.nama }}</label><br>
+
+        <input type="radio" name="{{ g.kode }}" value="0" required> Tidak Pernah
+        <input type="radio" name="{{ g.kode }}" value="1"> Jarang
+        <input type="radio" name="{{ g.kode }}" value="2"> Sering
+      </div>
+      {% endfor %}
+
+      <button
+        type="button"
+        class="btn btn-primary mt-3 px-4"
+        onclick="nextStep()">
+        Next →
+      </button>
+    </div>
+
+    <!-- STEP 2 -->
+    <div id="step2" style="display: none;">
+      <h5 class="mb-3 text-primary">Gejala Fisik</h5>
+
+      {% for g in gejala_fisik %}
+      <div class="mb-3 p-3 border rounded">
+        <label class="form-label fw-semibold">{{ g.nama }}</label><br>
+
+        <input type="radio" name="{{ g.kode }}" value="0" required> Tidak Pernah
+        <input type="radio" name="{{ g.kode }}" value="1"> Jarang
+        <input type="radio" name="{{ g.kode }}" value="2"> Sering
+      </div>
+      {% endfor %}
+
+      <button
+        type="button"
+        class="btn btn-secondary mt-3 px-4"
+        onclick="prevStep()">
+        ← Back
+      </button>
+
+      <button type="submit" class="btn btn-primary mt-3 px-4">
+        Proses Diagnosa
+      </button>
+    </div>
+
+  </form>
+
+</div>
+
+<!-- SCRIPT -->
+<script>
+function nextStep() {
+    // ambil semua pertanyaan di step1
+    const total = document.querySelectorAll('#step1 input[type="radio"][value="0"]').length;
+    const checked = document.querySelectorAll('#step1 input[type="radio"]:checked').length;
+
+    if (checked < total) {
+        alert("Silakan isi semua gejala psikologis terlebih dahulu!");
+        return;
+    }
+
+    document.getElementById("step1").style.display = "none";
+    document.getElementById("step2").style.display = "block";
+    window.scrollTo(0, 0);
+}
+
+function prevStep() {
+    document.getElementById("step2").style.display = "none";
+    document.getElementById("step1").style.display = "block";
+    window.scrollTo(0, 0);
+}
+</script>
+
+{% endblock %}

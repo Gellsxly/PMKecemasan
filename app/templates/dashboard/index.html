@@ -1,0 +1,95 @@
+{% extends 'layout/base.html' %} {% block content %}
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- TEXT -->
+      <div class="col-md-6">
+        <h1 class="fw-bold mb-3">
+          Jaga Kesehatan Mental Anda Bersama
+          <span class="text-primary">LENTERA</span>
+        </h1>
+
+        <p class="mb-4">
+          LENTERA adalah sistem pakar berbasis web yang membantu Anda mendeteksi
+          gangguan kecemasan sejak dini menggunakan metode
+          <strong>Forward Chaining</strong>.
+        </p>
+
+        <div class="d-flex gap-3">
+          <a href="/konsultasi" class="btn btn-primary px-4 py-2">
+            Mulai Konsultasi
+          </a>
+
+          <a href="/edukasi" class="btn btn-outline-primary px-4 py-2">
+            Pelajari Lebih Lanjut
+          </a>
+        </div>
+      </div>
+
+      <!-- IMAGE -->
+      <div class="col-md-6 text-center">
+        <img
+          src="{{ url_for('static', filename='img/doc1.jpg') }}"
+          alt="Mental Health"
+          class="img-fluid"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="container mt-5">
+  <div class="text-center mb-5">
+    <h2 class="fw-bold">Mengapa Memilih LENTERA?</h2>
+    <p class="text-muted">Solusi cerdas untuk deteksi dini kesehatan mental</p>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 mb-4">
+      <div class="card feature-card shadow-sm p-4 text-center">
+        <i class="bi bi-activity fs-1 text-primary mb-3"></i>
+        <h5>Deteksi Dini</h5>
+        <p>
+          Mengenali gejala kecemasan sejak awal untuk pencegahan lebih baik.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+      <div class="card feature-card shadow-sm p-4 text-center">
+        <i class="bi bi-cpu fs-1 text-primary mb-3"></i>
+        <h5>Sistem Pakar</h5>
+        <p>Menggunakan metode Forward Chaining berbasis rule.</p>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+      <div class="card feature-card shadow-sm p-4 text-center">
+        <i class="bi bi-person-check fs-1 text-primary mb-3"></i>
+        <h5>User Friendly</h5>
+        <p>Antarmuka sederhana dan mudah digunakan oleh semua pengguna.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="container mt-5">
+  <div class="p-5 bg-light rounded text-center shadow-sm">
+    <h3 class="fw-bold mb-3">Mulai Perjalanan Sehat Mental Anda</h3>
+    <p class="mb-4">
+      Lakukan konsultasi sekarang dan kenali kondisi Anda lebih awal
+    </p>
+    <a
+      href="{{ url_for('konsultasi.konsultasi_page') }}"
+      class="btn btn-primary px-4 py-2"
+    >
+      Mulai Konsultasi
+    </a>
+  </div>
+</section>
+
+{% endblock %}
