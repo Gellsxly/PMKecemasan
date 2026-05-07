@@ -5,8 +5,8 @@
   style="min-height: 80vh"
 >
   <div class="card p-4 shadow-sm login-card">
-    <h3 class="text-center mb-3 text-primary">Login</h3>
-    <p class="text-center text-muted mb-4">Masuk ke LENTERA Insight</p>
+    <h3 class="text-center mb-3 text-success">Register</h3>
+    <p class="text-center text-muted mb-4">Buat akun LENTERA Insight</p>
 
     <form method="POST">
       <div class="mb-3">
@@ -31,12 +31,12 @@
         />
       </div>
 
-      <button type="submit" class="btn btn-primary w-100">Login</button>
+      <button type="submit" class="btn btn-success w-100">Daftar</button>
     </form>
 
     <p class="text-center mt-3">
-      Belum punya akun?
-      <a href="{{ url_for('auth.register') }}">Daftar di sini</a>
+      Sudah punya akun?
+      <a href="{{ url_for('auth.login') }}">Login di sini</a>
     </p>
   </div>
 </div>

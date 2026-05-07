@@ -1,0 +1,163 @@
+{% extends 'layout/base.html' %} {% block content %}
+
+<div class="container mt-5">
+  <h3 class="mb-4 text-center">
+    <i class="bi bi-clock-history"></i> Riwayat Konsultasi
+  </h3>
+
+  {% if data %}
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle">
+      <thead class="table-primary text-center">
+        <tr>
+          <th>No</th>
+          <th>Hasil Diagnosa</th>
+          <th>Tingkat Keparahan</th>
+          <th>Keyakinan</th>
+          <th>Tanggal</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for d in data %}
+        <tr>
+          <td class="text-center">{{ loop.index }}</td>
+
+          <td
+            class="fw-semibold {% if 'Panik' in d['hasil'] %} text-danger {% elif 'Sosial' in d['hasil'] %} text-warning {% elif 'Umum' in d['hasil'] %} text-success {% else %} text-secondary {% endif %}"
+          >
+            <i
+              class="bi {% if 'Panik' in d['hasil'] %} bi-heart-pulse {% elif 'Sosial' in d['hasil'] %} bi-people {% elif 'Umum' in d['hasil'] %} bi-cloud-sun {% else %} bi-emoji-neutral {% endif %}"
+            ></i>
+            {{ d['hasil'] }}
+          </td>
+
+          <td class="text-center">
+            <span
+              class="badge {% if d['tingkat'] == 'Sangat Berat' %} bg-danger {% elif d['tingkat'] == 'Berat' %} bg-danger {% elif d['tingkat'] == 'Sedang' %} bg-warning text-dark {% elif d['tingkat'] == 'Ringan' %} bg-success {% else %} bg-secondary {% endif %} px-3 py-2"
+            >
+              {{ d['tingkat'] }}
+            </span>
+          </td>
+
+          <!-- PERBAIKAN ADA DI SINI: tanpa .get() -->
+          <td class="text-center">
+            {% set keyakinan = d['keyakinan'] if 'keyakinan' in d.keys() else 0
+            %} {% if keyakinan and keyakinan > 0 %}
+            <div class="progress" style="height: 8px">
+              <div
+                class="progress-bar bg-info"
+                role="progressbar"
+                style="width: {{ keyakinan }}%;"
+                aria-valuenow="{{ keyakinan }}"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+            <small class="text-muted">{{ keyakinan }}%</small>
+            {% else %}
+            <span class="text-muted">-</span>
+            {% endif %}
+          </td>
+
+          <td class="text-center text-muted small">{{ d['tanggal'] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Ringkasan Statistik -->
+  <div class="row mt-5 g-4">
+    <div class="col-md-4">
+      <div class="card text-center border-primary shadow-sm">
+        <div class="card-body">
+          <i class="bi bi-calendar-check fs-1 text-primary"></i>
+          <h5 class="card-title mt-2">Total Konsultasi</h5>
+          <p class="card-text display-6">{{ data|length }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-center border-success shadow-sm">
+        <div class="card-body">
+          <i class="bi bi-graph-up fs-1 text-success"></i>
+          <h5 class="card-title mt-2">Terakhir Konsultasi</h5>
+          <p class="card-text small">
+            {{ data[0]['tanggal'] if data else '-' }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-center border-warning shadow-sm">
+        <div class="card-body">
+          <i class="bi bi-activity fs-1 text-warning"></i>
+          <h5 class="card-title mt-2">Tingkat Terbanyak</h5>
+          <p class="card-text">
+            {% set tingkat_counts = {} %} {% for d in data %} {% set t =
+            d['tingkat'] %} {% set _ = tingkat_counts.update({t:
+            tingkat_counts.get(t, 0) + 1}) %} {% endfor %} {% if tingkat_counts
+            %} {{ tingkat_counts|sort(attribute=1, reverse=True)|first|first }}
+            {% else %} - {% endif %}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% else %}
+  <div class="text-center py-5">
+    <i class="bi bi-inbox display-1 text-muted"></i>
+    <p class="text-muted mt-3">Belum ada riwayat konsultasi</p>
+    <a
+      href="{{ url_for('konsultasi.konsultasi_page') }}"
+      class="btn btn-primary mt-2"
+    >
+      <i class="bi bi-plus-circle"></i> Mulai Konsultasi
+    </a>
+  </div>
+  {% endif %}
+
+  <!-- Tombol Aksi -->
+  <div class="text-center mt-4">
+    <a
+      href="{{ url_for('konsultasi.konsultasi_page') }}"
+      class="btn btn-outline-primary"
+    >
+      <i class="bi bi-arrow-repeat"></i> Konsultasi Baru
+    </a>
+    <button onclick="window.print()" class="btn btn-outline-secondary ms-2">
+      <i class="bi bi-printer"></i> Cetak Riwayat
+    </button>
+  </div>
+</div>
+
+<style>
+  .table th,
+  .table td {
+    vertical-align: middle;
+  }
+  .progress {
+    border-radius: 10px;
+    background-color: #e9ecef;
+  }
+  .card {
+    transition: transform 0.2s;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  @media print {
+    .btn,
+    .navbar,
+    footer {
+      display: none;
+    }
+    .card {
+      box-shadow: none;
+      border: 1px solid #ddd;
+    }
+  }
+</style>
+
+{% endblock %}

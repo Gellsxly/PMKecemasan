@@ -7,37 +7,21 @@
     <p class="text-muted">Kenali dan pahami kondisi Anda</p>
   </div>
 
-  <!-- APA ITU -->
-  <div class="card p-4 mb-4 shadow-sm">
-    <h4 class="text-primary">Apa itu Gangguan Kecemasan?</h4>
-    <p>
-      Gangguan kecemasan adalah kondisi ketika seseorang mengalami rasa cemas
-      berlebihan yang berlangsung terus-menerus dan dapat mengganggu aktivitas
-      sehari-hari.
-    </p>
-  </div>
+  <!-- ========================= -->
+  <!-- 🔥 EDUKASI DARI ADMIN -->
+  <!-- ========================= -->
+  <div class="mt-5">
+    <h3 class="mb-4 text-center fw-bold">Artikel Edukasi</h3>
 
-  <!-- GEJALA -->
-  <div class="card p-4 mb-4 shadow-sm">
-    <h4 class="text-primary">Gejala Umum</h4>
-    <ul>
-      <li>Gelisah berlebihan</li>
-      <li>Sulit tidur</li>
-      <li>Jantung berdebar</li>
-      <li>Sulit berkonsentrasi</li>
-      <li>Merasa tegang terus-menerus</li>
-    </ul>
-  </div>
-
-  <!-- SOLUSI -->
-  <div class="card p-4 mb-4 shadow-sm">
-    <h4 class="text-primary">Cara Mengatasi</h4>
-    <ul>
-      <li>Latihan pernapasan</li>
-      <li>Olahraga ringan</li>
-      <li>Menghindari stres berlebihan</li>
-      <li>Konsultasi dengan ahli</li>
-    </ul>
+    {% if data %} {% for e in data %}
+    <div class="card p-4 mb-3 shadow-sm">
+      <h5 class="fw-bold text-primary">{{ e['judul'] }}</h5>
+      <p>{{ e['isi'] }}</p>
+      <small class="text-muted">{{ e['tanggal'] }}</small>
+    </div>
+    {% endfor %} {% else %}
+    <p class="text-center text-muted">Belum ada artikel edukasi</p>
+    {% endif %}
   </div>
 
   <!-- CTA -->

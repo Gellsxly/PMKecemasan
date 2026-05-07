@@ -288,15 +288,114 @@ input[type="radio"] {
 }
 
 .footer-custom {
-    background: linear-gradient(to right, #e3f2fd, #ffffff);
+  background: linear-gradient(to right, #e3f2fd, #ffffff);
 }
 
 .footer-custom a {
-    text-decoration: none;
-    color: #333;
-    margin-top: 5px;
+  text-decoration: none;
+  color: #333;
+  margin-top: 5px;
 }
 
 .footer-custom a:hover {
-    color: #0d6efd;
+  color: #0d6efd;
 }
+
+a {
+  transition: 0.3s;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+/* BOX REKOMENDASI */
+.rekomendasi-box {
+  text-align: left;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 20px;
+  background-color: #f8f9fa;
+}
+
+/* WARNA BERDASARKAN TINGKAT */
+.rekomendasi-box.berat {
+  border-left: 6px solid #dc3545;
+  background-color: #fdecea;
+}
+
+.rekomendasi-box.sedang {
+  border-left: 6px solid #ffc107;
+  background-color: #fff8e1;
+}
+
+.rekomendasi-box.ringan {
+  border-left: 6px solid #198754;
+  background-color: #e8f5e9;
+}
+
+/* LIST */
+.rekomendasi-box ul {
+  padding-left: 20px;
+}
+
+.rekomendasi-box ul li {
+  margin-bottom: 5px;
+}
+
+/* TUJUAN */
+.rekomendasi-box .tujuan {
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* BOX LENTERA */
+.lentera-box {
+  margin-top: 20px;
+  padding: 18px;
+  border-radius: 10px;
+  background: linear-gradient(to right, #e3f2fd, #ffffff);
+  border-left: 5px solid #0d6efd;
+  text-align: left;
+}
+
+.lentera-box h6 {
+  margin-bottom: 8px;
+}
+
+/* CARD LOGIN */
+.login-card {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 12px;
+}
+
+/* INPUT */
+.login-card input {
+    border-radius: 8px;
+}
+
+/* BUTTON */
+.login-card .btn {
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+/* LINK */
+.login-card a {
+    text-decoration: none;
+}
+
+.login-card a:hover {
+    text-decoration: underline;
+}
+
+/* ADMIN PANEL */
+table {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.badge {
+    font-size: 0.9rem;
+} 

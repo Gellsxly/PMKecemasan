@@ -1,0 +1,35 @@
+{% extends 'layout/base.html' %} {% block content %}
+
+<div class="container mt-5">
+  <h3 class="mb-4 text-center">Edit Edukasi</h3>
+
+  <div class="card p-4 shadow-sm">
+    <form method="POST">
+      <div class="mb-3">
+        <label>Judul</label>
+        <input
+          type="text"
+          name="judul"
+          class="form-control"
+          value="{{ data['judul'] }}"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label>Isi</label>
+        <textarea name="isi" class="form-control" rows="5" required>
+{{ data['isi'] }}</textarea
+        >
+      </div>
+
+      <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+
+      <a href="{{ url_for('admin.edukasi') }}" class="btn btn-secondary">
+        Kembali
+      </a>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

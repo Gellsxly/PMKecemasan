@@ -1,25 +1,144 @@
 {% extends 'layout/base.html' %} {% block content %}
 
 <div class="container mt-5 text-center">
-  <h2 class="mb-4">Hasil Diagnosa</h2>
+  <h2 class="mb-4">Hasil Screening Kecemasan</h2>
 
-  <div class="card p-4 shadow-sm">
-    <h4 class="text-primary mb-3">{{ hasil }}</h4>
+  <div class="card p-4 shadow-lg border-0">
+    <!-- ICON -->
+    <div class="mb-3">
+      <i class="bi bi-clipboard-pulse text-primary" style="font-size: 40px"></i>
+    </div>
 
+    <!-- HASIL -->
+    <h4
+      class="mb-2 {% if 'Berat' in tingkat %} text-danger {% elif 'Sedang' in tingkat %} text-warning {% else %} text-success {% endif %}"
+    >
+      {{ hasil }}
+    </h4>
+
+    <!-- KEYAKINAN -->
+    {% if keyakinan %}
+    <div class="mb-2">
+      <span class="badge bg-info text-dark px-3 py-2">
+        🎯 Keyakinan Sistem: {{ keyakinan }}%
+      </span>
+      <p class="text-muted small mt-2">
+        Berdasarkan kecocokan pola gejala yang Anda pilih
+      </p>
+    </div>
+    {% endif %}
+
+    <!-- SKOR / TINGKAT -->
     <p>
-      Tingkat kecemasan Anda:
-      <strong>{{ tingkat }}</strong>
+      Tingkat Keparahan:
+      <strong
+        class="{% if tingkat == 'Berat' %} text-danger {% elif tingkat == 'Sedang' %} text-warning {% else %} text-success {% endif %}"
+      >
+        {{ tingkat }}
+      </strong>
     </p>
 
     <hr />
 
-    <p class="text-muted">
-      *Hasil ini hanya sebagai deteksi awal dan tidak menggantikan diagnosis
-      profesional.
-    </p>
+    <!-- DESKRIPSI BERDASARKAN GAD-7 -->
+    <div class="mb-3">
+      {% if tingkat == 'Berat' %}
+      <p class="text-muted">
+        Hasil screening menunjukkan tingkat kecemasan <strong>tinggi</strong>.
+        Gejala seperti rasa khawatir berlebihan, sulit relaksasi, dan gangguan
+        tidur kemungkinan sudah mengganggu aktivitas sehari-hari.
+      </p>
+
+      {% elif tingkat == 'Sedang' %}
+      <p class="text-muted">
+        Anda mengalami tingkat kecemasan <strong>sedang</strong>. Kondisi ini
+        masih bisa dikendalikan, namun perlu perhatian agar tidak berkembang
+        menjadi lebih berat.
+      </p>
+
+      {% else %}
+      <p class="text-muted">
+        Tingkat kecemasan Anda <strong>ringan</strong> atau masih dalam batas
+        normal. Ini merupakan respon alami terhadap tekanan hidup sehari-hari.
+      </p>
+      {% endif %}
+    </div>
+
+    <!-- REKOMENDASI -->
+    <div
+      class="rekomendasi-box mt-4 p-3 rounded {% if tingkat == 'Berat' %} bg-danger bg-opacity-10 border border-danger {% elif tingkat == 'Sedang' %} bg-warning bg-opacity-10 border border-warning {% else %} bg-success bg-opacity-10 border border-success {% endif %}"
+    >
+      <h5 class="mb-3">📋 Rekomendasi</h5>
+
+      {% if tingkat == 'Berat' %}
+      <ul class="text-start">
+        <li>🔴 Segera konsultasi ke psikolog / psikiater</li>
+        <li>📞 Cari bantuan profesional atau layanan kesehatan mental</li>
+        <li>👨‍👩‍👧 Ceritakan kondisi Anda ke orang terdekat</li>
+        <li>🧘 Hindari stres berlebih dan istirahat cukup</li>
+        <li>💊 Pertimbangkan terapi profesional</li>
+      </ul>
+
+      {% elif tingkat == 'Sedang' %}
+      <ul class="text-start">
+        <li>🧘 Lakukan relaksasi (meditasi / pernapasan)</li>
+        <li>😴 Jaga pola tidur (7–8 jam)</li>
+        <li>🏃 Olahraga ringan secara rutin</li>
+        <li>📝 Catat pemicu kecemasan</li>
+        <li>📞 Konsultasi jika gejala menetap</li>
+      </ul>
+
+      {% else %}
+      <ul class="text-start">
+        <li>🌟 Pertahankan gaya hidup sehat</li>
+        <li>🎵 Lakukan aktivitas menyenangkan</li>
+        <li>👥 Jaga interaksi sosial positif</li>
+        <li>🧘 Relaksasi ringan saat stres</li>
+      </ul>
+      {% endif %}
+    </div>
+
+    <!-- INFO GAD-7 -->
+    <div class="alert alert-light mt-4 p-3">
+      <strong>Catatan:</strong><br />
+      Sistem ini menggunakan pendekatan
+      <strong>GAD-7 (Generalized Anxiety Disorder-7)</strong> sebagai alat
+      <strong>screening awal</strong> untuk mendeteksi tingkat kecemasan.
+    </div>
+
+    <!-- DISCLAIMER -->
+    <div class="alert alert-warning mt-3 p-3">
+      <strong>Disclaimer:</strong>
+      Hasil ini <strong>bukan diagnosis medis</strong>. Untuk hasil yang akurat,
+      silakan konsultasi dengan tenaga profesional.
+    </div>
   </div>
 
-  <a href="/konsultasi" class="btn btn-primary mt-4"> Coba Lagi </a>
+  <!-- BUTTON -->
+  <div class="mt-4 d-flex justify-content-center gap-3">
+    <a
+      href="{{ url_for('konsultasi.konsultasi_page') }}"
+      class="btn btn-primary px-4"
+    >
+      🔄 Ulangi Konsultasi
+    </a>
+
+    <a
+      href="{{ url_for('konsultasi.riwayat') }}"
+      class="btn btn-outline-secondary px-4"
+    >
+      📜 Lihat Riwayat
+    </a>
+  </div>
 </div>
+
+<style>
+  .rekomendasi-box {
+    text-align: left;
+  }
+  .rekomendasi-box li {
+    margin-bottom: 8px;
+  }
+</style>
 
 {% endblock %}

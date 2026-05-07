@@ -1,0 +1,58 @@
+{% extends 'layout/base.html' %} {% block content %}
+
+<div class="container mt-5">
+  <h3 class="mb-4 text-center fw-bold">Kelola Edukasi</h3>
+
+  <div class="mb-3 text-end">
+    <a href="{{ url_for('admin.tambah_edukasi') }}" class="btn btn-primary">
+      ➕ Tambah Edukasi
+    </a>
+  </div>
+
+  <div class="card shadow-sm p-4">
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="table-primary text-center">
+          <tr>
+            <th>No</th>
+            <th>Judul</th>
+            <th>Isi</th>
+            <th>Tanggal</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for e in data %}
+          <tr>
+            <td class="text-center">{{ loop.index }}</td>
+            <td>{{ e['judul'] }}</td>
+            <td>{{ e['isi'][:100] }}...</td>
+            <td class="text-center">{{ e['tanggal'] }}</td>
+
+            <!-- ✅ AKSI -->
+            <td class="text-center">
+              <a
+                href="{{ url_for('admin.edit_edukasi', id=e['id']) }}"
+                class="btn btn-warning btn-sm"
+              >
+                ✏️ Edit
+              </a>
+
+              <a
+                href="{{ url_for('admin.hapus_edukasi', id=e['id']) }}"
+                class="btn btn-danger btn-sm"
+                onclick="return confirm('Yakin hapus data?');"
+              >
+                🗑️ Hapus
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

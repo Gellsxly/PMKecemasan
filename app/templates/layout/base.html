@@ -2,7 +2,7 @@
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <title>LENTERA</title>
+    <title>LENTERA Insight</title>
 
     <!-- Bootstrap -->
     <link
@@ -29,7 +29,7 @@
       <div class="container">
         <!-- Logo -->
         <a class="navbar-brand fw-bold" href="{{ url_for('main.dashboard') }}">
-          <i class="bi bi-heart-pulse-fill text-primary"></i> LENTERA
+          <i class="bi bi-heart-pulse-fill text-primary"></i> LENTERA Insight
         </a>
 
         <!-- Toggle -->
@@ -57,19 +57,91 @@
               </a>
             </li>
 
-            <!-- CTA Button -->
-            <li class="nav-item ms-3">
+            <a href="{{ url_for('konsultasi.riwayat') }}" class="nav-link">
+              Riwayat
+            </a>
+
+            {% if session.get('username') %}
+
+            <!-- USER LOGIN -->
+            <li class="nav-item">
+              <span class="nav-link text-primary fw-semibold">
+                👋 {{ session['username'] }}
+              </span>
+            </li>
+
+            <!-- ADMIN ONLY -->
+            {% if session.get('role') == 'admin' %}
+            <li class="nav-item ms-2">
+              <a href="/admin" class="btn btn-warning px-3">
+                <i class="bi bi-gear-fill"></i> Admin Panel
+              </a>
+            </li>
+            {% endif %}
+
+            <!-- KONSULTASI -->
+            <li class="nav-item ms-2">
               <a
                 href="{{ url_for('konsultasi.konsultasi_page') }}"
                 class="btn btn-primary px-3"
               >
-                Mulai Konsultasi
+                Deteksi Dini
               </a>
             </li>
+
+            <!-- LOGOUT -->
+            <li class="nav-item ms-2">
+              <a
+                href="{{ url_for('auth.logout') }}"
+                class="btn btn-outline-danger px-3"
+              >
+                Logout
+              </a>
+            </li>
+
+            {% else %}
+
+            <!-- BELUM LOGIN -->
+            <li class="nav-item ms-2">
+              <a
+                href="{{ url_for('auth.login') }}"
+                class="btn btn-outline-primary px-3"
+              >
+                Login
+              </a>
+            </li>
+
+            <li class="nav-item ms-2">
+              <a
+                href="{{ url_for('auth.register') }}"
+                class="btn btn-primary px-3"
+              >
+                Register
+              </a>
+            </li>
+
+            {% endif %}
           </ul>
         </div>
       </div>
     </nav>
+
+    <!-- FLASH MESSAGE -->
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %}
+    <div class="container mt-3">
+      {% for category, message in messages %}
+      <div class="alert alert-{{ category }} alert-dismissible fade show">
+        {{ message }}
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+        ></button>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %} {% endwith %}
 
     <!-- CONTENT -->
     <main>{% block content %}{% endblock %}</main>
@@ -78,29 +150,26 @@
     <footer class="mt-5 pt-5 pb-4 footer-custom">
       <div class="container">
         <div class="row text-center">
-          <!-- About -->
           <div class="col-md-4 mb-4">
-            <h5 class="fw-bold">LENTERA</h5>
+            <h5 class="fw-bold">LENTERA Insight</h5>
             <p>
               Sistem pakar untuk deteksi dini gangguan kecemasan berbasis metode
               Forward Chaining.
             </p>
           </div>
 
-          <!-- Contact -->
           <div class="col-md-4 mb-4">
             <h6 class="fw-bold">Contact Us</h6>
-            <p><i class="bi bi-envelope"></i> kamu@email.com</p>
-            <p><i class="bi bi-telephone"></i> 08xxxxxxxxxx</p>
+            <p><i class="bi bi-envelope"></i> rigelnadim@email.com</p>
+            <p><i class="bi bi-telephone"></i> 085329449504</p>
           </div>
 
-          <!-- Social -->
           <div class="col-md-4 mb-4">
             <h6 class="fw-bold">Follow Me</h6>
-            <a href="#" class="d-block">
+            <a href="https://www.instagram.com/gellvibes_/" class="d-block">
               <i class="bi bi-instagram"></i> Instagram
             </a>
-            <a href="#" class="d-block">
+            <a href="https://github.com/Gellsxly" class="d-block">
               <i class="bi bi-github"></i> GitHub
             </a>
           </div>
@@ -108,10 +177,9 @@
 
         <hr />
 
-        <!-- Bottom -->
         <div class="text-center">
           <small>
-            © 2026 LENTERA | Sistem Pakar Kecemasan <br />
+            © 2026 LENTERA Insight | Sistem Pakar Kecemasan <br />
             <span class="text-muted">
               *Tidak menggantikan diagnosis profesional
             </span>
